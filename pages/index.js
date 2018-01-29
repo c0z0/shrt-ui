@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Head from 'next/head'
 
 import classBuilder from '../utils/classBuilder'
 import testUrl from '../utils/testUrl'
@@ -33,6 +34,9 @@ export default class Index extends Component {
 
 		return (
 			<div className="container">
+				<Head>
+					<title>SHRT</title>
+				</Head>
 				<div className="card">
 					<h1 className="title">shrt</h1>
 					<form onSubmit={this.onSubmit.bind(this)}>
