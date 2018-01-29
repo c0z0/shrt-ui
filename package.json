@@ -1,18 +1,21 @@
 {
-  "name": "shrt-ui",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:c0z0/shrt-ui.git",
-  "author": "Cosmin Serdean <cosmoserdean@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "next": "^4.2.3",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
-  },
-  "scripts": {
-    "start": "next start",
-    "dev": "next",
-    "build": "next build"
-  }
+	"name": "shrt-ui",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "git@github.com:c0z0/shrt-ui.git",
+	"author": "Cosmin Serdean <cosmoserdean@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"next": "^4.2.3",
+		"react": "^16.2.0",
+		"react-dom": "^16.2.0"
+	},
+	"scripts": {
+		"start": "next start",
+		"dev": "next",
+		"build": "next build"
+	},
+	"now": {
+		"alias": "shrt.demos.cserdean.me"
+	}
 }
