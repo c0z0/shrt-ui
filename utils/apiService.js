@@ -1,4 +1,4 @@
-const apiUrl = 's.cserdean.me/'
+const apiUrl = 'https://s.cserdean.me/'
 
 /**
  * Hits the api and returns the shortened url
