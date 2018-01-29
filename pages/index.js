@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import classBuilder from '../utils/classBuilder'
 import testUrl from '../utils/testUrl'
+import { shorten } from '../utils/apiService'
 
 export default class Index extends Component {
 	state = {
@@ -10,29 +11,34 @@ export default class Index extends Component {
 
 	updateInput({ target: { value: url } }) {
 		this.setState({ url })
+	}
 
-		clearInterval(this.interval)
+	async onSubmit(e) {
+		e.preventDefault()
 
-		if (!testUrl(url)) {
-			this.interval = setInterval(
-				() => this.setState({ invalidMessage: true }),
-				3000
-			)
-		} else {
-			this.setState({ invalidMessage: false })
+		this.setState({ loading: true })
+
+		try {
+			const url = await shorten(this.state.url)
+			this.setState({ loading: false, url })
+			document.getElementById('js-url').select()
+		} catch (err) {
+			this.setState({ error: err.message })
+			return this.setState({ loading: false })
 		}
 	}
 
 	render() {
-		const { url, invalidMessage, loading } = this.state
+		const { url, error, loading } = this.state
 
 		return (
 			<div className="container">
 				<div className="card">
 					<h1 className="title">shrtn</h1>
-					<form>
+					<form onSubmit={this.onSubmit.bind(this)}>
 						<div className="input__container">
 							<input
+								id="js-url"
 								disabled={loading}
 								type="text"
 								className={classBuilder('input', {
@@ -43,9 +49,9 @@ export default class Index extends Component {
 								onChange={this.updateInput.bind(this)}
 								value={url}
 							/>
+							{error && <p className="input__invalid-message">{error}</p>}
 						</div>
 						<input
-							onClick={() => this.setState({ loading: true })}
 							disabled={loading}
 							type="submit"
 							value={loading ? 'Loading...' : 'Shorten'}
