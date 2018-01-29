@@ -34,7 +34,7 @@ export default class Index extends Component {
 		return (
 			<div className="container">
 				<div className="card">
-					<h1 className="title">shrtn</h1>
+					<h1 className="title">shrt</h1>
 					<form onSubmit={this.onSubmit.bind(this)}>
 						<div className="input__container">
 							<input
