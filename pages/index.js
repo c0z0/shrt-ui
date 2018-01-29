@@ -34,6 +34,9 @@ export default class Index extends Component {
 
 		return (
 			<div className="container">
+				<a href="https://github.com/c0z0/shrt-ui" className="src">
+					[src]
+				</a>
 				<Head>
 					<title>SHRT</title>
 				</Head>
@@ -138,6 +141,21 @@ export default class Index extends Component {
 					.submit-button--disabled {
 						background: #777;
 						cursor: default;
+					}
+
+					.src {
+						color: #000 !important;
+						opacity: 0.5;
+						font-family: Menlo;
+						text-decoration: none;
+						transition: 0.2s all;
+						position: absolute;
+						top: 16px;
+						left: 16px;
+					}
+
+					.src:hover {
+						opacity: 1;
 					}
 				`}</style>
 				<style jsx global>{`
