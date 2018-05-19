@@ -7,21 +7,24 @@ import { shorten } from '../utils/apiService'
 
 export default class Index extends Component {
 	state = {
-		url: ''
+		url: '',
+		inputShortened: false
 	}
 
 	updateInput({ target: { value: url } }) {
-		this.setState({ url })
+		this.setState({ url, inputShortened: false })
 	}
 
 	async onSubmit(e) {
 		e.preventDefault()
 
+		if (this.state.inputShortened) return
+
 		this.setState({ loading: true })
 
 		try {
 			const url = await shorten(this.state.url)
-			this.setState({ loading: false, url })
+			this.setState({ loading: false, url, inputShortened: true })
 			document.getElementById('js-url').select()
 		} catch (err) {
 			this.setState({ error: err.message })
@@ -30,7 +33,12 @@ export default class Index extends Component {
 	}
 
 	render() {
-		const { url, error, loading } = this.state
+		const { url, error, loading, inputShortened } = this.state
+
+		const inputValid = testUrl(url)
+
+		const buttonDisabled =
+			loading || inputShortened || !inputValid || url.length == 0
 
 		return (
 			<div className="container">
@@ -49,7 +57,7 @@ export default class Index extends Component {
 								disabled={loading}
 								type="text"
 								className={classBuilder('input', {
-									'input--invalid': !testUrl(url) && url.length > 0,
+									'input--invalid': !inputValid && url.length > 0,
 									'input--disabled': loading
 								})}
 								placeholder="Url..."
@@ -59,11 +67,11 @@ export default class Index extends Component {
 							{error && <p className="input__invalid-message">{error}</p>}
 						</div>
 						<input
-							disabled={loading}
+							disabled={buttonDisabled}
 							type="submit"
 							value={loading ? 'Loading...' : 'Shorten'}
 							className={classBuilder('submit-button', {
-								'submit-button--disabled': loading
+								'submit-button--disabled': buttonDisabled
 							})}
 						/>
 					</form>
